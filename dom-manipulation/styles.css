@@ -1,0 +1,154 @@
+/* Basic reset and container styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    padding: 20px;
+    background-color: #f5f5f5;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Header styling */
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+}
+
+/* Quote display styling */
+#quoteDisplay {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    min-height: 150px;
+}
+
+.quote-text {
+    font-size: 24px;
+    color: #2c3e50;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.quote-category {
+    color: #7f8c8d;
+    font-size: 16px;
+}
+
+/* Filter container styling */
+.filter-container {
+    margin: 20px 0;
+}
+
+#categoryFilter {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-size: 16px;
+    width: 200px;
+}
+
+/* Button styling */
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+#newQuote {
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+}
+
+/* Form styling */
+.add-quote-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Success message styling */
+.success-message {
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Animation for success message */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .quote-text {
+        font-size: 20px;
+    }
+    
+    #categoryFilter {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    #newQuote {
+        width: 100%;
+    }
+}
