@@ -40,6 +40,45 @@ h2 {
     border-bottom: 1px solid #eee;
 }
 
+/* Filter container styling */
+.filter-container {
+    background-color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.filter-container label {
+    font-weight: bold;
+    color: #2c3e50;
+    min-width: 140px;
+}
+
+#categoryFilter {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#categoryFilter:hover {
+    border-color: #3498db;
+}
+
+#categoryFilter:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
 /* Quote display styling */
 #quoteDisplay {
     background-color: white;
@@ -90,10 +129,19 @@ h2 {
     font-size: 16px;
     text-align: right;
     margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
     font-style: italic;
 }
 
-/* Form styling */
+.no-quotes {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Form container styling */
 .form-container {
     background-color: white;
     padding: 20px;
@@ -106,18 +154,18 @@ h2 {
     margin-bottom: 15px;
 }
 
-input[type="text"] {
+.input-group input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-input[type="text"]:focus {
-    border-color: #3498db;
+.input-group input:focus {
     outline: none;
+    border-color: #3498db;
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
 }
 
@@ -148,93 +196,42 @@ button:active {
     margin: 20px auto;
     width: 200px;
     font-size: 18px;
+    background-color: #2ecc71;
 }
 
-/* Import/Export section styling */
-.import-export {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 20px 0;
-    border: 1px dashed #dee2e6;
+#newQuote:hover {
+    background-color: #27ae60;
 }
 
-.import-export h2 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-}
-
-.file-input-container {
-    margin: 15px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-input[type="file"] {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: white;
-    width: 100%;
-}
-
-/* Custom file input styling */
-.custom-file-input {
-    position: relative;
-    display: inline-block;
-}
-
-.custom-file-input input[type="file"] {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
-
-.custom-file-input label {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: inline-block;
-    transition: all 0.3s ease;
-}
-
-.custom-file-input:hover label {
-    background-color: #2980b9;
-}
-
-/* Success/Error message styling */
+/* Message styling */
 .message {
-    padding: 10px 20px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 24px;
     border-radius: 4px;
-    margin: 10px 0;
+    color: white;
+    font-weight: bold;
     animation: slideIn 0.3s ease-out;
+    z-index: 1000;
 }
 
 .success-message {
     background-color: #2ecc71;
-    color: white;
 }
 
 .error-message {
     background-color: #e74c3c;
-    color: white;
 }
 
-/* Animation keyframes */
+/* Animations */
 @keyframes slideIn {
     from {
-        transform: translateY(-20px);
+        transform: translateX(100%);
         opacity: 0;
     }
     to {
-        transform: translateY(0);
+        transform: translateX(0);
         opacity: 1;
     }
 }
@@ -245,6 +242,16 @@ input[type="file"] {
         padding: 10px;
     }
     
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    
+    .filter-container label {
+        min-width: auto;
+    }
+    
     .quote-text {
         font-size: 20px;
     }
@@ -253,17 +260,15 @@ input[type="file"] {
         width: 100%;
     }
     
-    .import-export {
-        padding: 15px;
-    }
-    
     button {
         width: 100%;
         margin: 5px 0;
     }
     
-    .file-input-container {
-        flex-direction: column;
+    .message {
+        left: 20px;
+        right: 20px;
+        text-align: center;
     }
 }
 
@@ -274,11 +279,11 @@ input[type="file"] {
         color: #f5f5f5;
     }
     
-    section, #quoteDisplay, .form-container {
+    section, #quoteDisplay, .form-container, .filter-container {
         background-color: #2d2d2d;
     }
     
-    input[type="text"] {
+    #categoryFilter, input[type="text"] {
         background-color: #333;
         color: #f5f5f5;
         border-color: #444;
@@ -288,12 +293,16 @@ input[type="file"] {
         color: #f5f5f5;
     }
     
-    h1, h2 {
+    h1, h2, .filter-container label {
         color: #f5f5f5;
     }
     
-    .import-export {
-        background-color: #2d2d2d;
-        border-color: #444;
+    .no-quotes {
+        color: #aaa;
+    }
+    
+    .quote-category {
+        color: #aaa;
+        border-top-color: #444;
     }
 }
