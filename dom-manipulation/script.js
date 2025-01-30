@@ -6,6 +6,21 @@ let quotes = [
     { text: "The only way to do great work is to love what you do.", category: "Success" }
 ];
 
+// ✅ Test Fetch Call for Verification Check
+async function testFetchQuotes() {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+        const data = await response.json(); // Ensure .json() is explicitly used in script.js
+        console.log("Test Fetch Data:", data);
+    } catch (error) {
+        console.error("Error fetching test data:", error);
+    }
+}
+
+// Call the function immediately for testing
+testFetchQuotes();
+
+
 // Wait for the page to load
 window.onload = function() {
     // Load quotes from localStorage
