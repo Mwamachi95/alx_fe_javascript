@@ -14,7 +14,7 @@ class QuoteSyncService {
     }
 
     // Fetch quotes from server
-    async fetchServerQuotes() {
+    async fetchQuotesFromServer() {
         try {
             const response = await fetch(`${this.baseUrl}/posts`);
             if (!response.ok) throw new Error('Network response was not ok');
