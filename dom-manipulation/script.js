@@ -45,6 +45,8 @@ async function testPostQuote() {
 // Call the function immediately for testing
 testPostQuote();
 
+
+
 // Wait for the page to load
 window.onload = function() {
     // Load quotes from localStorage
@@ -275,6 +277,16 @@ window.addEventListener('quotesSync', (event) => {
             `Sync failed: ${error}`;
     }
 });
+
+// ✅ Periodically check for new quotes every 30 seconds
+setInterval(async () => {
+    try {
+        await syncService.syncQuotes();
+        console.log("Periodic sync completed.");
+    } catch (error) {
+        console.error("Error during periodic sync:", error);
+    }
+}, 30000); // 30 seconds
 
 // Update the existing window.onload
 window.onload = async function() {
