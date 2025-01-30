@@ -160,3 +160,94 @@ function showMessage(text, isError = false) {
         messageDiv.remove();
     }, 3000);
 }
+
+// Existing quotes array and other code remains...
+
+// Initialize sync service
+const syncService = new QuoteSyncService();
+
+// Add sync status indicator to UI
+const syncStatusDiv = document.createElement('div');
+syncStatusDiv.className = 'sync-status';
+syncStatusDiv.innerHTML = `
+    <span class="sync-icon">↻</span>
+    <span class="sync-text">Last synced: Never</span>
+`;
+document.body.insertBefore(syncStatusDiv, document.querySelector('.filter-container'));
+
+// Add manual sync button
+const syncButton = document.createElement('button');
+syncButton.id = 'manualSync';
+syncButton.innerHTML = 'Sync Now';
+syncButton.onclick = () => syncService.syncQuotes();
+document.body.insertBefore(syncButton, document.querySelector('.filter-container'));
+
+// Update the existing addQuote function
+async function addQuote() {
+    const newText = document.getElementById('newQuoteText').value;
+    const newCategory = document.getElementById('newQuoteCategory').value;
+    
+    if (newText === '' || newCategory === '') {
+        alert('Please fill in both the quote and category!');
+        return;
+    }
+    
+    // Add new quote to array with timestamp
+    quotes.push({
+        text: newText,
+        category: newCategory,
+        timestamp: Date.now()
+    });
+    
+    // Save to localStorage
+    saveQuotes();
+    
+    // Trigger immediate sync
+    try {
+        await syncService.syncQuotes();
+        showMessage('Quote added and synced successfully!');
+    } catch (error) {
+        showMessage('Quote added locally. Sync failed: ' + error.message, true);
+    }
+    
+    // Update UI
+    populateCategories();
+    document.getElementById('newQuoteText').value = '';
+    document.getElementById('newQuoteCategory').value = '';
+    filterQuotes();
+}
+
+// Add sync event listeners
+window.addEventListener('quotesSync', (event) => {
+    const { success, quotesCount, error } = event.detail;
+    
+    if (success) {
+        syncStatusDiv.querySelector('.sync-text').textContent = 
+            `Last synced: ${new Date().toLocaleTimeString()}`;
+        syncStatusDiv.classList.remove('sync-error');
+        loadQuotes();
+        populateCategories();
+        filterQuotes();
+    } else {
+        syncStatusDiv.classList.add('sync-error');
+        syncStatusDiv.querySelector('.sync-text').textContent = 
+            `Sync failed: ${error}`;
+    }
+});
+
+// Update the existing window.onload
+window.onload = async function() {
+    loadQuotes();
+    populateCategories();
+    restoreLastCategory();
+    filterQuotes();
+    
+    // Initial sync
+    try {
+        await syncService.syncQuotes();
+    } catch (error) {
+        console.error('Initial sync failed:', error);
+    }
+    
+    document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+};

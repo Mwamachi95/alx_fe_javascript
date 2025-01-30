@@ -306,3 +306,52 @@ button:active {
         border-top-color: #444;
     }
 }
+
+/* Sync status styles */
+.sync-status {
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sync-icon {
+    font-size: 18px;
+    animation: rotate 2s linear infinite;
+    display: inline-block;
+}
+
+.sync-status.sync-error {
+    background-color: #ffe6e6;
+    color: #cc0000;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+#manualSync {
+    background-color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+#manualSync:hover {
+    background-color: #45a049;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .sync-status {
+        background-color: #2d2d2d;
+    }
+    
+    .sync-status.sync-error {
+        background-color: #442222;
+        color: #ff6666;
+    }
+}
