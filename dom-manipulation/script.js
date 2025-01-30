@@ -165,7 +165,7 @@ function showMessage(text, isError = false) {
 
 // Initialize sync service
 const syncService = new QuoteSyncService();
-
+syncService.fetchQuotesFromServer();
 
 
 // Add sync status indicator to UI
