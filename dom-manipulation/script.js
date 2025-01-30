@@ -20,6 +20,30 @@ async function testFetchQuotes() {
 // Call the function immediately for testing
 testFetchQuotes();
 
+// ✅ Test POST Request for Verification Check
+async function testPostQuote() {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: "Test Category",
+                body: "This is a test quote.",
+                userId: 1
+            })
+        });
+
+        const data = await response.json();
+        console.log("Test POST Response:", data);
+    } catch (error) {
+        console.error("Error posting test data:", error);
+    }
+}
+
+// Call the function immediately for testing
+testPostQuote();
 
 // Wait for the page to load
 window.onload = function() {
