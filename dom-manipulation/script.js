@@ -271,6 +271,9 @@ window.addEventListener('quotesSync', (event) => {
         loadQuotes();
         populateCategories();
         filterQuotes();
+
+        // ✅ Add this notification when sync succeeds
+        showMessage('Quotes synced with server!');
     } else {
         syncStatusDiv.classList.add('sync-error');
         syncStatusDiv.querySelector('.sync-text').textContent = 
