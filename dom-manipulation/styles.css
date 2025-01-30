@@ -133,22 +133,66 @@ button:hover {
     }
 }
 
+/* Export and Import buttons styling */
+.export-import-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.export-import-container button {
+    width: 48%;
+}
+
+/* File input styling */
+#importFile {
+    display: none; /* Hide the default file input */
+}
+
+.custom-file-upload {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    text-align: center;
+    display: inline-block;
+    width: 48%;
+}
+
+.custom-file-upload:hover {
+    background-color: #2980b9;
+}
+
 /* Responsive design */
 @media (max-width: 600px) {
     body {
         padding: 10px;
     }
-    
+
     .quote-text {
         font-size: 20px;
     }
-    
+
     #categoryFilter {
         width: 100%;
         margin: 10px 0;
     }
-    
+
     #newQuote {
         width: 100%;
+    }
+
+    .export-import-container {
+        flex-direction: column;
+    }
+
+    .export-import-container button,
+    .custom-file-upload {
+        width: 100%;
+        margin: 10px 0;
     }
 }
