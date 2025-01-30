@@ -166,6 +166,8 @@ function showMessage(text, isError = false) {
 // Initialize sync service
 const syncService = new QuoteSyncService();
 
+
+
 // Add sync status indicator to UI
 const syncStatusDiv = document.createElement('div');
 syncStatusDiv.className = 'sync-status';

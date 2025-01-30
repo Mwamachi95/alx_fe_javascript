@@ -89,7 +89,7 @@ class QuoteSyncService {
             const localQuotes = JSON.parse(localStorage.getItem('quotes') || '[]');
             
             // Fetch server quotes
-            const serverQuotes = await this.fetchServerQuotes();
+            const serverQuotes = await this.fetchQuotesFromServer();
             
             // Push new local quotes to server
             await this.pushQuotesToServer(localQuotes);
