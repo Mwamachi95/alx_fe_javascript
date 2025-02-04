@@ -41,7 +41,7 @@ h2 {
 }
 
 /* Filter container styling */
-.filter-container {
+#filter-container {
     background-color: white;
     padding: 15px 20px;
     border-radius: 8px;
@@ -52,7 +52,7 @@ h2 {
     gap: 15px;
 }
 
-.filter-container label {
+#filter-container label {
     font-weight: bold;
     color: #2c3e50;
     min-width: 140px;

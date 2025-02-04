@@ -76,8 +76,17 @@ document.getElementById('newQuote').addEventListener('click', showRandomQuote);
 
 // Function to create add quote form
 function createAddQuoteForm() {
-    const formContainer = document.createElement('div');
-    formContainer.className = 'form-container';
+    const formContainer = document.getElementById('form-container');
+    // formContainer.className = 'form-container';
+
+    formContainer.innerHTML = ''
+
+    const form = document.createElement('form')
+    form.onsubmit = function(event) {
+        event.preventDefault();
+        addQuote();
+    }
+
     formContainer.innerHTML = `
         <h2>Add a New Quote</h2>
         <div class="input-group">
@@ -86,8 +95,10 @@ function createAddQuoteForm() {
         <div class="input-group">
             <input id="newQuoteCategory" type="text" placeholder="Enter category">
         </div>
-        <button onclick="addQuote()">Add Quote</button>
+        <button id="addQuoteBtn" type="submit">Add Quote</button>
     `;
+
+
     //document.body.appendChild(formContainer);
     // Find the import/export section by its text content
     const importExportSection = Array.from(document.body.children).find(child => 
@@ -150,36 +161,20 @@ function restoreLastCategory() {
 document.getElementById("addQuoteBtn").addEventListener('click', addQuote);
 
 // Function to add a new quote
-async function addQuote() {
-    const newText = document.getElementById('newQuoteText').value;
-    const newCategory = document.getElementById('newQuoteCategory').value;
-    
-    if (!newText || !newCategory) {
-        alert('Please fill in both fields');
-        return;
+function addQuote() {
+    const newQuoteText = document.getElementById('newQuoteText').value;
+    const newQuoteCategory = document.getElementById('newQuoteCategory').value;
+
+    if (newQuoteText && newQuoteCategory) {
+        quotes.push({ text: newQuoteText, category: newQuoteCategory });
+        saveQuotes();
+        populateCategories();
+        document.getElementById('newQuoteText').value = '';
+        document.getElementById('newQuoteCategory').value = '';
+        alert('Quote added successfully!');
+    } else {
+        alert('Please fill in both fields.');
     }
-    
-    const newQuote = {
-        text: newText,
-        category: newCategory,
-        timestamp: Date.now()
-    };
-    
-    quotes.push(newQuote);
-    saveQuotes();
-    
-    try {
-        await syncService.syncQuotes();
-        showMessage('Quote added and synced successfully!');
-    } catch (error) {
-        showMessage('Quote added locally. Sync failed: ' + error.message, true);
-    }
-    
-    // Clear inputs and update display
-    document.getElementById('newQuoteText').value = '';
-    document.getElementById('newQuoteCategory').value = '';
-    populateCategories();
-    showRandomQuote();
 }
 
 // Function to save quotes to local storage
