@@ -43,16 +43,22 @@ async function testPostQuote() {
     }
 }
 
+function filterQuotes(selectedCategory) {
+    return selectedCategory === 'all' ? quotes : quotes.filter(quote => quote.category === selectedCategory);
+}
+
 // Function to display a random quote (renamed from filterQuotes)
 function showRandomQuote() {
     const selectedCategory = document.getElementById('categoryFilter').value;
     const quoteDisplay = document.getElementById('quoteDisplay');
     
     saveLastCategory(selectedCategory);
+
+    const filteredQuotes = filterQuotes(selectedCategory)
     
-    const filteredQuotes = selectedCategory === 'all' 
-        ? quotes 
-        : quotes.filter(quote => quote.category === selectedCategory);
+    // const filteredQuotes = selectedCategory === 'all' 
+    //     ? quotes 
+    //     : quotes.filter(quote => quote.category === selectedCategory);
     
     if (filteredQuotes.length === 0) {
         quoteDisplay.innerHTML = '<p class="no-quotes">No quotes found for this category</p>';
