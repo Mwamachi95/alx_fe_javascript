@@ -71,6 +71,18 @@ function showRandomQuote() {
     `;
 }
 
+// Function to initialize quotes from server
+async function initializeQuotes() {
+    try {
+        const fetchedQuotes = await syncService.fetchQuotesFromServer();
+        localStorage.setItem('quotes', JSON.stringify(fetchedQuotes));
+        quotes = fetchedQuotes; // Update local quotes array
+        showRandomQuote(); // Display a random quote after fetching
+    } catch (error) {
+        console.error('Failed to fetch quotes:', error);
+    }
+}
+
 // Add event listener for "Show New Quote" button
 document.getElementById('newQuote').addEventListener('click', showRandomQuote);
 
@@ -290,7 +302,7 @@ window.onload = async function() {
     testPostQuote();
     
     // Load quotes and setup UI
-    loadQuotes();
+    await initializeQuotes();
     createAddQuoteForm();
     populateCategories();
     restoreLastCategory();
