@@ -1,3 +1,7 @@
+import { QuoteSyncService } from './syncService.js';
+
+const syncService = new QuoteSyncService();
+
 // Initial quotes array with text and category properties
 let quotes = [
     { text: "Be the change you wish to see in the world.", category: "Inspiration" },
@@ -5,6 +9,7 @@ let quotes = [
     { text: "Innovation distinguishes between a leader and a follower.", category: "Leadership" },
     { text: "The only way to do great work is to love what you do.", category: "Success" }
 ];
+
 
 // Test Fetch Call for Verification Check
 async function testFetchQuotes() {
@@ -66,6 +71,9 @@ function showRandomQuote() {
     `;
 }
 
+// Add event listener for "Show New Quote" button
+document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+
 // Function to create add quote form
 function createAddQuoteForm() {
     const formContainer = document.createElement('div');
@@ -80,7 +88,21 @@ function createAddQuoteForm() {
         </div>
         <button onclick="addQuote()">Add Quote</button>
     `;
-    document.body.appendChild(formContainer);
+    //document.body.appendChild(formContainer);
+    // Find the import/export section by its text content
+    const importExportSection = Array.from(document.body.children).find(child => 
+        child.textContent.includes("Import/Export Quotes")
+    );
+
+    // Insert formContainer before the import/export section
+    if (importExportSection) {
+        importExportSection.parentNode.insertBefore(formContainer, importExportSection);
+    } else {
+        document.body.appendChild(formContainer); // Fallback if not found
+    }
+    
+     // Attach event listener to the Add Quote button
+     document.getElementById("addQuoteBtn").addEventListener('click', addQuote);
 }
 
 // Function to get unique categories
@@ -124,6 +146,8 @@ function restoreLastCategory() {
         }
     }
 }
+
+document.getElementById("addQuoteBtn").addEventListener('click', addQuote);
 
 // Function to add a new quote
 async function addQuote() {
@@ -197,7 +221,7 @@ function importFromJsonFile(event) {
             quotes = quotes.concat(importedQuotes);
             saveQuotes();
             populateCategories();
-            displayRandomQuote();
+            showRandomQuote();
             showMessage('Quotes imported successfully!');
         } catch (error) {
             showMessage('Error importing quotes: Invalid JSON file', true);
@@ -262,7 +286,7 @@ setInterval(async () => {
     } catch (error) {
         console.error("Error during periodic sync:", error);
     }
-}, 30000);
+}, 10000);
 
 // Initialize when page loads
 window.onload = async function() {
@@ -285,7 +309,7 @@ window.onload = async function() {
     }
     
     // Add event listener for new quote button
-    document.getElementById('newQuote').addEventListener('click', displayRandomQuote);
+    document.getElementById('newQuote').addEventListener('click', showRandomQuote);
     
     // Load last viewed quote from session storage if exists
     const lastViewedQuote = sessionStorage.getItem('lastViewedQuote');

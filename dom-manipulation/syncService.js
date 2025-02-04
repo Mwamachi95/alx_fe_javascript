@@ -1,9 +1,9 @@
 // syncService.js
 
-class QuoteSyncService {
+export class QuoteSyncService {
     constructor(baseUrl = 'https://jsonplaceholder.typicode.com') {
         this.baseUrl = baseUrl;
-        this.syncInterval = 30000; // 30 seconds
+        this.syncInterval = 10000; // 30 seconds
         this.lastSyncTimestamp = Date.now();
         this.setupAutoSync();
     }
