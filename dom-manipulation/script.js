@@ -39,7 +39,7 @@ async function testPostQuote() {
 }
 
 // Function to display a random quote (renamed from filterQuotes)
-function displayRandomQuote() {
+function showRandomQuote() {
     const selectedCategory = document.getElementById('categoryFilter').value;
     const quoteDisplay = document.getElementById('quoteDisplay');
     
@@ -155,7 +155,7 @@ async function addQuote() {
     document.getElementById('newQuoteText').value = '';
     document.getElementById('newQuoteCategory').value = '';
     populateCategories();
-    displayRandomQuote();
+    showRandomQuote();
 }
 
 // Function to save quotes to local storage
@@ -245,7 +245,7 @@ window.addEventListener('quotesSync', (event) => {
         syncStatusDiv.classList.remove('sync-error');
         loadQuotes();
         populateCategories();
-        displayRandomQuote();
+        showRandomQuote();
         showMessage('Quotes synced with server!');
     } else {
         syncStatusDiv.classList.add('sync-error');
@@ -275,7 +275,7 @@ window.onload = async function() {
     createAddQuoteForm();
     populateCategories();
     restoreLastCategory();
-    displayRandomQuote();
+    showRandomQuote();
     
     // Initial sync
     try {
